@@ -1,0 +1,14 @@
+#Chain 
+chain-id=5777
+
+#ETH Client
+downstream-http-host="host.docker.internal"
+downstream-http-port=7545
+
+http-listen-host="0.0.0.0"
+http-listen-port=8596
+
+#File-based
+file-base-signer.key-file="/opt/keyFile.key"
+file-base-signer.password-file="/opt/passwordFile.password"
+

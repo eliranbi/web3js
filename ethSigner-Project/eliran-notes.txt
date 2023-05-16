@@ -1,0 +1,74 @@
+
+https://hub.docker.com/r/consensys/ethsigner/tags
+
+## Run the following command to start ethSigner ....
+# default command below ... 
+
+#docker run -p <listenPort>:8545 -v <~/myKeyFile>:/opt/ethsigner/keyfile -v <~/myPasswordFile>:/opt/ethsigner/passwordfile consensys/ethsigner:latest --chain-id=2018 --downstream-http-host=<PantheonHost> --downstream-http-port=8590 --http-listen-host=0.0.0.0 file-based-signer -k /opt/ethsigner/keyfile -p /opt/ethsigner/passwordfile
+
+
+
+
+#Run the following command .. 
+docker run -p 8545:8545 -v /Users/eliran/Documents/projects/ethSignerTest/keyFile.key:/opt/ethsigner/keyfile -v /Users/eliran/Documents/projects/ethSignerTest/passwordFile.password:/opt/ethsigner/passwordfile consensys/ethsigner:latest --chain-id=5777 --downstream-http-host="host.docker.internal" --downstream-http-port=7545 --http-listen-host=0.0.0.0 --http-listen-port=8545 file-based-signer -k /opt/ethsigner/keyfile -p /opt/ethsigner/passwordfile
+
+# make sure to create keyFile and password file ... 
+
+docker run -p 8545:8545 -v $(pwd)/keyFile.key:/opt/ethsigner/keyfile -v $(pwd)/passwordFile.password:/opt/ethsigner/passwordfile consensys/ethsigner:latest --chain-id=5777 --downstream-http-host="host.docker.internal" --downstream-http-port=7545 --http-listen-host=0.0.0.0 --http-listen-port=8545 file-based-signer -k /opt/ethsigner/keyfile -p /opt/ethsigner/passwordfile
+
+Discord
+https://discord.com/channels/697535391594446898/888098626264502302
+
+
+# Test ...
+
+
+curl -X POST --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":51}' http://127.0.0.1:8545         
+
+response: 
+{"id":51,"jsonrpc":"2.0","result":"0x9"}% 
+
+curl -X GET http://127.0.0.1:8545/upcheck
+
+response:
+I'm up!%                          
+
+curl -X POST --data '{"jsonrpc":"2.0","method":"eth_accounts","params":[], "id":1}' http://127.0.0.1:8545
+
+response:
+{"jsonrpc":"2.0","id":1,"result":["0x9ece1853ca14551112140ab7e2f130f7532d6601"]}% 
+
+
+curl -X POST --data '{"jsonrpc":"2.0","method":"eth_sendTransaction","params":[{ "from": "0x9eCE1853CA14551112140ab7E2f130F7532d6601", "to": "0x34054acDc96eB94E83CDF67b45E88BF877fA9399", "gas": "0x76c0", "gasPrice": "0x9184e72a000", "value": "0x9184e72a"}],"id":1}' http://127.0.0.1:8545
+
+response:
+{"id":1,"jsonrpc":"2.0","result":"0xdbe8db5d7cafc360de358330f85a575304f750389bf76b3c7fcda5ee0a60adbc"}%      eliran@ELIRANs-Air projects % 
+
+
+http://man.hubwiz.com/docset/Ethereum.docset/Contents/Resources/Documents/eth_sendTransaction.html
+https://www.quicknode.com/docs/ethereum/eth_blockNumber
+
+All grpc methods can be found here ...
+https://besu.hyperledger.org/en/stable/public-networks/reference/api/
+
+
+params: [{
+  "from": "0x9eCE1853CA14551112140ab7E2f130F7532d6601",
+  "to": "0x34054acDc96eB94E83CDF67b45E88BF877fA9399",
+  "gas": "0x76c0", // 30400
+  "gasPrice": "0x9184e72a000", // 10000000000000
+  "value": "0x9184e72a", // 2441406250
+  "id" : 1
+}]
+Returns
+DATA, 32 Bytes - the transaction hash, or the zero hash if the transaction is not yet available.
+
+Use eth_getTransactionReceipt to get the contract address, after the transaction was mined, when you created a contract.
+
+Example
+// Request
+curl -X POST --data '{"jsonrpc":"2.0","method":"eth_sendTransaction","params":[{see above}],"id":1}'
+
+curl -X POST --data '{"jsonrpc":"2.0","method":"eth_sendTransaction","params":[{ "from": "0x9eCE1853CA14551112140ab7E2f130F7532d6601", "to": "0x34054acDc96eB94E83CDF67b45E88BF877fA9399", "gas": "0x76c0", "gasPrice": "0x9184e72a000", "value": "0x9184e72a"}],"id":1}' http://127.0.0.1:8545
+
+

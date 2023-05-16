@@ -1,0 +1,54 @@
+const Web3 = require('web3');
+
+const main = () => {
+    //const web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io'));
+    
+    var web3 = new Web3('http://localhost:8545')
+    let account = web3.eth.accounts.create(web3.utils.randomHex(32));
+    let wallet = web3.eth.accounts.wallet.add(account);
+    let keystore = wallet.encrypt(web3.utils.randomHex(32));
+    
+    console.log({
+        account: account,
+        wallet: wallet,
+        keystore: keystore
+    });
+
+};
+
+main();
+
+/********** Response 
+ * 
+ * {
+  account: {
+    address: '0x33F341a224CC295746C144b30583668c9003f367',
+    privateKey: '0x73baf57dc50cecd57d090ef5304e96371963ea2276c3acad7f12a43d84780a03',
+    signTransaction: [Function: signTransaction],
+    sign: [Function: sign],
+    encrypt: [Function: encrypt]
+  },
+  wallet: {
+    address: '0x33F341a224CC295746C144b30583668c9003f367',
+    privateKey: '0x73baf57dc50cecd57d090ef5304e96371963ea2276c3acad7f12a43d84780a03',
+    signTransaction: [Function: signTransaction],
+    sign: [Function: sign],
+    encrypt: [Function: encrypt],
+    index: 0
+  },
+  keystore: {
+    version: 3,
+    id: '30971cfc-5416-4a3f-948e-b1623f66ba74',
+    address: '33f341a224cc295746c144b30583668c9003f367',
+    crypto: {
+      ciphertext: 'a0634004f8840ce212eeaef9a2a850d2fc39bd4c78a356cc1d6e8bd21c4284d8',
+      cipherparams: [Object],
+      cipher: 'aes-128-ctr',
+      kdf: 'scrypt',
+      kdfparams: [Object],
+      mac: '7b7f76d795b1bb14269f372eecc5d11754f26890a06c4ecc8b8e22b9f1dc8495'
+    }
+  }
+
+ * 
+ *****/
